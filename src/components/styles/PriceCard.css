@@ -1,0 +1,81 @@
+.PricePlan-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15vh;
+}
+
+.PricePlan-Thali {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+.PricePlan-image {
+    width: 40vmin;
+    height: auto;
+}
+
+.PricePlan-ThaliText {
+    color: rgb(109, 104, 104);
+}
+
+.PricePlan-PriceCard {
+    display: flex;
+    flex-direction: column;
+    margin-top:10px;
+}
+
+.PricePlan-PriceCardHeading {
+    font-size: 1.2em;
+}
+
+.PricePlan-Strip {
+    height: 12px;
+    padding: 10px;
+    width: 100%;
+}
+
+.PricePlan-price {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+    align-items: center;
+}
+
+
+.PricePlan-number {
+    font-size: 50px;
+}
+
+
+
+@media (
+    max-width: 800px
+) {
+    .PricePlan-container {
+        overflow-y: auto;
+        position: relative;
+    }
+
+    .PricePlan-image {
+        width: 40vw;
+    }
+
+    .PricePlan-ThaliText {
+        font-size: medium
+    }
+
+    .PricePlan-CardContent {
+        display: none;
+    }
+
+    .PricePlan-price {
+        padding: 10px;
+    }
+
+    .PricePlan-number {
+        font-size: 20px;
+    }
+
+}

@@ -1,0 +1,22 @@
+.cookProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cook-profile-name {
+    text-align: center;
+    color: #f36f27;
+    font-size: 2rem;
+}
+
+.former {
+    display: flex;
+    width: 100%;
+    justify-content: 'center';  
+}
+
+.form {
+    padding-top: 15px;
+}

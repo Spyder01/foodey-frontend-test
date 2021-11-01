@@ -1,0 +1,48 @@
+.CooksPageMainArea {
+    margin: 5vh 5vw 0 10vw;
+    position: relative;
+    z-index: 0;
+}
+
+
+.cooksHeader {
+    font-size: 1.5vmx;
+    padding: 2vmax;
+    text-align: center;
+    margin-top: 3.5vmax;
+}
+
+.cook-ratings {
+    color: #707070;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+}
+
+h1 {
+    color: orange;
+}
+
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+@media (max-width: 720px) {
+    .CooksPageMainArea {
+        margin: 2vh 5vw 0 10vw;
+    }
+    .cooksHeader {
+        font-size: 1.5vmax;
+        padding: 2vmax;
+        margin: 6vh;
+    }
+
+    .logo {
+        height: 20;
+    }
+    
+}

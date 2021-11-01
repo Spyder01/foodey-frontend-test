@@ -1,0 +1,44 @@
+.sideBar-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10;
+    width: 100%;
+    background-color: #ffbd59;
+    align-items: center;
+    height: 900vh;
+    margin-top: 10vh;
+    color: #fff;
+    padding-top: 15vh;
+}
+
+.sideBar-description {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 20px;
+}
+
+.sideBar-ProfileHeader {
+    font-size: medium;
+    text-transform: uppercase;
+}
+
+.sideBar-descriptionContent {
+    color: #000;
+    font-size: 1em;
+    
+}
+
+.starRatings {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+@media (max-width: 800px) {
+    .sideBar-container {
+        height: 100vh;
+    }
+}

@@ -1,0 +1,62 @@
+
+
+.Logo {
+    height: 20vh;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.nav-items {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    width: 25%;
+}
+
+.nav-items span {
+    display: inline-block;
+
+}
+
+.menu-icon {
+    display: none;
+}
+
+.mon {
+    display: none
+}
+
+
+
+@media (max-width: 900px) {
+    .nav-items {
+        width: 40%;
+    }
+    .menu-icon {
+        display: none;
+    }
+}
+
+
+@media (max-width: 500px) {
+    nav img {
+        height: 215px;
+    }  
+    
+    .sun {
+        display: none;
+    }
+
+    .mon {
+        display: block;
+    }
+    .menu-icon {
+        display: inline-block;
+    }
+
+    .Logo {
+        height: 10vh;
+    }
+    
+}

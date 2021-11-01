@@ -1,0 +1,20 @@
+.Invoice-MainArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: orange;
+    width: 100vw;
+    height: 100vh;
+    padding-left: 2vw;
+}
+
+.Invoice-Msg {
+    font-size: 2.75em;
+}
+
+.btn-groups {
+    display: flex;
+    justify-content: space-between;
+    width: 45vw;
+    margin-top: 10px;
+}
