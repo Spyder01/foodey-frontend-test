@@ -67,63 +67,35 @@ const getCook = async (id)=>{
 }
 
 const getMenu = async (phone)=>{
-  //  const t = await db.collection ("Cooks").doc(id).get ()
- //   console.log(t.collection("Menu"))
-    console.log(phone);
-    const Orders = await getOrders (null, phone);
-    const snapshot = await Orders.filter(order=>{
-       // console.log(order.verified)
-        if(order.verified)
-            return order;
-    });
-  //  console.table (Orders)db
-    console.table (Orders)
+    const orders = await getOrders (null, phone)
+   // console.log(orders)
+   // const orders = await Orders.filter(order=>order.verified)    
+  //  console.log(orders);
 
-    const menu = await Orders.map(async order=>{
-      //  console.log(order.cookID)
-        if (order.cookID != undefined) {
-        const cook = await db.collection ("Cooks").doc(order.cookID).collection('Menu').get ();
-
-        const Menu = await cook.docs.map(doc=>{
-            let data = {}
-            for (let key in doc.data())
-                data[key] = doc.data()[key];
-            
-        
-             const Data = {
-                ...data,
-                day: doc.id
-            };
-            console.log (Data);
-            return Data;
-        })
-
-        return Menu;
-        }
-        return null;
-
-
-
-    })
-
-    console.log (menu)
-    return menu
-
+   // console.log (orders)
+    const IDs = await orders.map (order=>order.cookID);
+   //console.log (IDs)
+    const menuData = await IDs.map (async id=>await GetMenu(id));
+    const res = await Promise.all(menuData);
+    console.log (res);
+    return res;
 }
 
-const GetMenu = async (phoneNo)=>{
-    const orders = await getOrders (null, phoneNo);
-    const reqOrders = await orders.filter(order=>order.verified);
-    const reqCookIds = await reqOrders.map(order=>order.cookID);
-    const menu = await reqCookIds.map(async id=>{
-        const data = await db.collection ("Cooks").doc(id).collection("Menu").get ();
-        var dayMenu = {};
-        await data.docs.map(async doc=>{dayMenu[doc.id] = doc.data});
-        console.table (dayMenu);
-        return dayMenu;
-    })
-    return menu;
-}
+const GetMenu = async (id)=>{
+        //console.log (id);
+        const Cook = await db.collection ("Cooks").doc(`${id}`).get ();
+        const cook = await Cook.data ();
+        const Menu = await db.collection ("Cooks").doc (`${id}`).collection('Menu').get ();
+        const menu = Menu.docs.map(doc=>doc.data ());
+    //    console.log (menu)
+        const obj = {
+            Cook: cook,
+            Menu: menu
+        };
+        console.log (obj);
+        return obj
+    }
+
 
 const getCookByState = async (state)=>{
     const snapshot = await db.collection ("Cooks").get ();

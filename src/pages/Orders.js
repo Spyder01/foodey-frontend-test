@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../components/navBar";
 import { getOrders } from "../firebase/db";
 import { useRecoilValue } from "recoil";
-import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import {useHistory} from 'react-router-dom';
 import {
   List,
   Chip,
@@ -42,24 +42,29 @@ const Orders = () => {
   const [data, setData] = useState([]);
   const isLoggedIn = useRecoilValue(store.isLoggedIn);
   const phone = useRecoilValue(store.phoneNo);
+  const History = useHistory ();
 
   const Data = data.map((ele) => {
     const name = Cooks.filter((cook) => {
       if (cook.id === ele.cookID) return cook.Name;
     })[0]["Name"];
+    console.log(ele.verified)
     return {
       ...ele,
       name,
-      verified: true,
     };
   });
 
-  const History = useHistory();
- // if (!isLoggedIn) History.push("/login");
+
 
   useEffect(() => {
+  if (!isLoggedIn) return History.push("/login");
+
     getOrders(null, phone).then((ele) => setData(ele));
   }, []);
+
+  if (phone === null) 
+    History.push ('/login');
 
   return (
     <>

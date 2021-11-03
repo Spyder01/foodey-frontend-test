@@ -23,7 +23,8 @@ interface MenuProps {
 interface CardProps {
     Name: string,
     State: string,
-    menu: MenuProps
+    Image: string,
+    menu: Array<any>
 }
 
 interface MenuDialogProp {
@@ -38,18 +39,25 @@ interface MenuDialogProp {
 
 
 const Page:FC = ()=>{
-    const [cooks, setCooks]:any = useState(null);
+    const [cooks, setCooks]:any = useState([]);
     const [menu, setMenu]:any = useState (null);
+    const [res, setRes]:any = useState ([])
     const phone = useRecoilValue (Store.phoneNo);
 
-    getMenu ('+91 12345-67890')
+    
 
-    const HandleAPI = ()=>{
-
+    const HandleAPI = async ()=>{
+        return await getMenu ('+91 96354-44072');
+        
     }
 
 
-    useEffect (HandleAPI, []);
+    useEffect (()=>{
+        getMenu (phone).then (Res=>{
+            setRes (Res)
+            console.log (res)
+        });
+    }, []);
 
     
     
@@ -81,16 +89,24 @@ const Page:FC = ()=>{
     }    
     
 
+
      
     return (
         <>
             <NavBar active="Community" scroll={true} Color="#FBFEFD" />
             <div className="Menu-Main">
 
+                {
+                    (()=>{
+                        console.log (res.length)
+                        if (res.length===0) return (<h1>No Verified orders</h1>)
+                        else return (res.map((item: any)=><Carder Name={item["Cook"].Name} State={item["Cook"].State} menu={item.Menu} Image={item["Cook"].Profile_Image} />))
+                    })()
+                }
 
 
-            <Carder Name={Data.Name} State={Data.State} menu={Data.menu} ></Carder>
-                
+
+
             </div>
         
         </>
@@ -155,7 +171,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Carder:FC<CardProps> = ({Name, State, menu})=>{
+const Carder:FC<CardProps> = ({Name, State, menu, Image})=>{
 
         const styles = useStyles ()
         const [dialog, setDialog] = useState (false);
@@ -169,59 +185,15 @@ const Carder:FC<CardProps> = ({Name, State, menu})=>{
 
         const dayControll = (index:number)=> !(index >= new Date().getDay()); 
         
-
-        const days = [
-            {
-                name: "Sun",
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map ((day, index)=>{
+            return {
+                name: day,
                 click: ()=>{
-                    setSelectedMenu (menu.Sunday)
+                    setSelectedMenu (menu[index]);
                     setDialog (!dialog)
                 }
-            },
-            {
-                name: "mon",
-                click: ()=>{
-                    setSelectedMenu (menu.Monday)
-                    setDialog (!dialog)
-                }
-            },
-            {
-                name: "tue",
-                click: ()=>{
-                    setSelectedMenu (menu.Tuesday)
-                    setDialog (!dialog)
-                }
-            },
-            {
-                name: "wed",
-                click: ()=>{
-                    setSelectedMenu (menu.Wednesday)
-                    setDialog (!dialog)
-                }
-            },
-            {
-                name: "thu",
-                click: ()=>{
-                    setSelectedMenu (menu.Thursday)
-                    setDialog (!dialog)
-                }
-            },
-            {
-                name: "fri",
-                click: ()=>{
-                    setSelectedMenu (menu.Friday)
-                    setDialog (!dialog)
-                }
-            },
-            {
-                name: "Sat",
-                click: ()=>{
-                    setSelectedMenu (menu.Saturday)
-                    setDialog (!dialog)
-                }
-            },
-
-        ]
+            }
+        });
 
         return (
             <div className={styles.root}>
@@ -254,7 +226,7 @@ const Carder:FC<CardProps> = ({Name, State, menu})=>{
                     </div>
 
                 </CardContent>
-                        <MenuDialog dialog={dialog} handleClose={handleDialogClose} data={menu}   />
+                        <MenuDialog dialog={dialog} handleClose={handleDialogClose} data={selectedMenu}   />
             </Card>
             </div>
         )
@@ -276,6 +248,15 @@ const useDialogStyles = makeStyles({
     }
 })
 
+const list = (data:any)=>{
+    console.log (data)
+
+    for (let key in data){
+        console.log (key, data[key])
+        if (data[key]!=="")
+        return (<ListItem><strong>{key}</strong>: {data[key]}</ListItem>)
+    }
+}
 
 const MenuDialog:FC<MenuDialogProp> = ({dialog,handleClose, data})=>{
     const styles = useDialogStyles ();
@@ -283,18 +264,10 @@ const MenuDialog:FC<MenuDialogProp> = ({dialog,handleClose, data})=>{
         <Dialog open={dialog} onClose={handleClose}>  
             <DialogTitle id="simple-dialog-title"><strong>Menu</strong></DialogTitle>
             <List>
-                <ListItem>
-                    Dal: {data.Dal}
-                </ListItem>
-                <ListItem>
-                    Curry: {data.Dal}
-                </ListItem>
-                <ListItem>
-                    Dal: {data.Dal}
-                </ListItem>
-                <ListItem>
-                    Dal: {data.Dal}
-                </ListItem>
+                {
+                    list (data)
+                        
+                }
             </List>
         </Dialog>
     )
