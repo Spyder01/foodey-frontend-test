@@ -62,34 +62,6 @@ const Page:FC = ()=>{
     
     
 
-
-
-    
-    const Data = {
-        Name: "Babloo",
-        State: "Rajasthan",
-        subscription: "non-veg-weekly",
-        menu: {
-            Monday: {
-                Dal: "",
-                Curry: "",
-                Rice: "",
-                Roti: "",
-                Sabji1: "",
-                Sabji2: ""
-            },
-            Tuesday: "",
-            Wednesday: "",
-            Thursday: "",
-            Friday: "",
-            Saturday: "",
-            Sunday: ""
-        }
-        
-    }    
-    
-
-
      
     return (
         <>
@@ -248,18 +220,30 @@ const useDialogStyles = makeStyles({
     }
 })
 
-const list = (data:any)=>{
-    console.log (data)
 
-    for (let key in data){
-        console.log (key, data[key])
-        if (data[key]!=="")
-        return (<ListItem><strong>{key}</strong>: {data[key]}</ListItem>)
-    }
-}
 
 const MenuDialog:FC<MenuDialogProp> = ({dialog,handleClose, data})=>{
-    const styles = useDialogStyles ();
+    const styles = useDialogStyles ();  
+
+
+
+    const list = (data:any)=>{
+        console.log (data)
+        var arr: any = [];
+    
+    
+        for (let key in data){
+            console.log (typeof [key, data[key]])
+          //  if (data[key]!=="")
+            arr.push ([key, data[key]])
+
+        }
+
+        return arr.map((ele:any)=><ListItem><strong>{ele[0]}</strong>:{ele[1]}</ListItem>);
+
+
+    }
+
     return (
         <Dialog open={dialog} onClose={handleClose}>  
             <DialogTitle id="simple-dialog-title"><strong>Menu</strong></DialogTitle>
@@ -271,4 +255,8 @@ const MenuDialog:FC<MenuDialogProp> = ({dialog,handleClose, data})=>{
             </List>
         </Dialog>
     )
+}
+
+function ele(ele: any, arg1: (any: any) => any) {
+    throw new Error('Function not implemented.');
 }
